@@ -99,6 +99,10 @@ import Base:^
 
 ^(a::TrackedReal, b::Integer) = track(^, a, b)
 
+# Hack for conversions
+
+(T::Type{<:Real})(x::Dual) = Dual(T(x.value), map(T, x.partials.values))
+
 # Tuples
 
 struct TrackedTuple{T<:Tuple}
